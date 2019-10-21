@@ -30,9 +30,10 @@ function concertThis() {
 
     axios.get(queryURL).then(function(response) {
         for (var i = 0; i < response.data.length; i++) {
+            console.log("===")
             console.log("Venue Name: " + response.data[i].venue.name);
             console.log("Venue Location: " + response.data[i].venue.city); // add state or country
-            console.log("Concert Date: " + response.data[i].datetime);
+            console.log("Concert Date: " + moment(response.data[i].datetime).format("MM/DD/YYYY"));
         }
     }).catch(function(error) {
         if (error.response) {
@@ -57,9 +58,6 @@ function concertThis() {
 // "/events?app_id=codingbootcamp") for an artist and render the following
 // information about each event to the terminal:
 
-// Get all elements in process.argv, starting from index 2 to the end
-// Join them into a string to get the space delimited address
-// var address = process.argv.slice(2).join(" ");
 
 // Name of the venue
 
