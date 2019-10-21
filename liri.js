@@ -74,16 +74,16 @@ function spotifyThis(userInput) {
         var songs = data.tracks.items
 
         for (var i = 0; i < songs.length; i++) {
-            console.log(songs[i].artists);
+            console.log("===")
+            console.log("Artist(s): " + songs[i].artists[0].name);
             console.log("Song Name: " + songs[i].name);
-            // console.log(songs[i].name);
-            // console.log(songs[i].name);
-            // console.log(songs[i].name);
+            console.log("Song Preview: " + songs[i].preview_url);
+            console.log("Album: " + songs[i].album.name);
+            console.log("===")
         }
 
     })
 }
-
 
 function movieThis(userInput) {
     if (!userInput) {
