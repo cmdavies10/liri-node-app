@@ -4,34 +4,37 @@ require("dotenv").config();
 // initialize variables
 var fs = require("fs"); // to read .txt file
 var Spotify = require("node-spotify-api");
+var keys = require("./keys.js");
+var spotify = new Spotify(keys.spotify);
 var axios = require("axios");
 var moment = require("moment");
-
-
-// code required to import the keys.js file
-var keys = require("./keys.js");
-
-// use the below to access keys information
-var spotify = new Spotify(keys.spotify);
 
 // user command and inputs
 var userCommand = process.argv[2];
 var userInput = process.argv.slice(3).join("+");
 
+// Execute Function
+liriBot(userCommand, userInput);
+
 // FUNCTIONS====
-switch (userCommand) {
-    case "concert-this":
-        concertThis(userInput);
-        break;
-    case "movie-this":
-        movieThis(userInput);
-        break;
-    case "spotify-this-song":
-        spotifyThis(userInput);
-        break;
-    default:
-        console.log("Invalid. Please type one of the following options: \nconcert-this \nspotify-this-song \nmovie-this")
-};
+function liriBot(userCommand, userInput) {
+    switch (userCommand) {
+        case "concert-this":
+            concertThis(userInput);
+            break;
+        case "movie-this":
+            movieThis(userInput);
+            break;
+        case "spotify-this-song":
+            spotifyThis(userInput);
+            break;
+        case "do-what-it-says":
+            doThis(userInput);
+            break;
+        default:
+            console.log("Invalid. Please type one of the following options: \nconcert-this \nspotify-this-song \nmovie-this \ndo-what-it-says")
+    };
+}
 
 function concertThis(userInput) {
     var queryURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
@@ -71,7 +74,7 @@ function spotifyThis(userInput) {
             return console.log("Error occurred: " + err);
         }
 
-        var songs = data.tracks.items
+        var songs = data.tracks.items;
 
         for (var i = 0; i < songs.length; i++) {
             console.log("===")
@@ -79,9 +82,7 @@ function spotifyThis(userInput) {
             console.log("Song Name: " + songs[i].name);
             console.log("Song Preview: " + songs[i].preview_url);
             console.log("Album: " + songs[i].album.name);
-            console.log("===")
         }
-
     })
 }
 
@@ -115,3 +116,22 @@ function movieThis(userInput) {
         console.log(error.config);
     });
 };
+
+function doThis(userInput) {
+    fs.readFile("random.txt", "utf8", function(err, data) {
+        if (err) {
+            return console.log(err);
+        }
+
+        var dataArr = data.split(",");
+        console.log(dataArr);
+
+        userCommand = dataArr[0];
+        console.log(userCommand);
+
+        userInput = dataArr[1];
+        console.log(userInput);
+
+        liriBot(userCommand, userInput);
+    });
+}
