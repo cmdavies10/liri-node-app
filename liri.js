@@ -18,10 +18,6 @@ var keys = require("./keys.js");
 var userCommand = process.argv[2];
 var userInput = process.argv.slice(3).join("+");
 
-
-// concertThis();
-
-
 // FUNCTIONS====
 // switch function
 switch (userCommand) {
@@ -61,13 +57,13 @@ function concertThis(userInput) {
 };
 
 function movieThis(userInput) {
+    if (!userInput) {
+        userInput = "Mr. Nobody";
+    }
     var queryURL = "http://www.omdbapi.com/?t=" + userInput + "&apikey=trilogy"
     console.log(queryURL);
 
     axios.get(queryURL).then(function(response) {
-        if (!userInput) {
-            userInput = "Mr. Nobody"
-        }
         console.log("===")
         console.log("Title: " + response.data.Title);
         console.log("Year: " + response.data.Year);
