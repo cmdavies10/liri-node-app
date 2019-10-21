@@ -13,10 +13,10 @@ var moment = require("moment");
 var userCommand = process.argv[2];
 var userInput = process.argv.slice(3).join("+");
 
-// Execute Function
+// execute function
 liriBot(userCommand, userInput);
 
-// FUNCTIONS====
+// functions ====
 function liriBot(userCommand, userInput) {
     switch (userCommand) {
         case "concert-this":
@@ -38,14 +38,22 @@ function liriBot(userCommand, userInput) {
 
 function concertThis(userInput) {
     var queryURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
-    console.log(queryURL);
+    console.log(queryURL); // REMOVE IN FINAL VERSION
 
     axios.get(queryURL).then(function(response) {
         for (var i = 0; i < response.data.length; i++) {
-            console.log("===")
-            console.log("Venue Name: " + response.data[i].venue.name);
-            console.log("Venue Location: " + response.data[i].venue.city); // add state or country
-            console.log("Concert Date: " + moment(response.data[i].datetime).format("MM/DD/YYYY"));
+            var concertInfo =
+                "-- Concert Details --" +
+                "\nVenue Name: " + response.data[i].venue.name +
+                "\nVenue Location: " + response.data[i].venue.city +
+                "\nConcert Date: " + moment(response.data[i].datetime).format("MM/DD/YYYY") +
+                "\n"
+            console.log(concertInfo);
+
+            // console.log("===")
+            // console.log("Venue Name: " + response.data[i].venue.name);
+            // console.log("Venue Location: " + response.data[i].venue.city); // ADD STATE OR COUNTRY
+            // console.log("Concert Date: " + moment(response.data[i].datetime).format("MM/DD/YYYY"));
         }
     }).catch(function(error) {
         if (error.response) {
@@ -77,11 +85,20 @@ function spotifyThis(userInput) {
         var songs = data.tracks.items;
 
         for (var i = 0; i < songs.length; i++) {
-            console.log("===")
-            console.log("Artist(s): " + songs[i].artists[0].name);
-            console.log("Song Name: " + songs[i].name);
-            console.log("Song Preview: " + songs[i].preview_url);
-            console.log("Album: " + songs[i].album.name);
+            var songInfo =
+                "-- Song Details --" +
+                "\nArtist(s): " + songs[i].artists[0].name +
+                "\nSong Name: " + songs[i].name +
+                "\nSong Preview: " + songs[i].preview_url +
+                "\nAlbum: " + songs[i].album.name +
+                "\n"
+            console.log(songInfo);
+
+            // console.log("===")
+            // console.log("Artist(s): " + songs[i].artists[0].name);
+            // console.log("Song Name: " + songs[i].name);
+            // console.log("Song Preview: " + songs[i].preview_url);
+            // console.log("Album: " + songs[i].album.name);
         }
     })
 }
@@ -91,18 +108,31 @@ function movieThis(userInput) {
         userInput = "Mr. Nobody";
     }
     var queryURL = "http://www.omdbapi.com/?t=" + userInput + "&apikey=trilogy"
-    console.log(queryURL);
+    console.log(queryURL); // REMOVE IN FINAL VERSION
 
     axios.get(queryURL).then(function(response) {
-        console.log("===")
-        console.log("Title: " + response.data.Title);
-        console.log("Year: " + response.data.Year);
-        console.log("IMDB Rating: " + response.data.imdbRating);
-        console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
-        console.log("Country(ies): " + response.data.Country);
-        console.log("Language(s): " + response.data.Language);
-        console.log("Plot: " + response.data.Plot);
-        console.log("Actor(s): " + response.data.Actors);
+        var movieInfo =
+            "-- Movie Details --" +
+            "\nTitle: " + response.data.Title +
+            "\nYear: " + response.data.Year +
+            "\nIMDB Rating: " + response.data.imdbRating +
+            "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value +
+            "\nCountry(ies): " + response.data.Country +
+            "\nLanguage(s): " + response.data.Language +
+            "\nPlot: " + response.data.Plot +
+            "\nActor(s): " + response.data.Actors +
+            "\n"
+        console.log(movieInfo);
+
+        // console.log("===")
+        // console.log("Title: " + response.data.Title);
+        // console.log("Year: " + response.data.Year);
+        // console.log("IMDB Rating: " + response.data.imdbRating);
+        // console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+        // console.log("Country(ies): " + response.data.Country);
+        // console.log("Language(s): " + response.data.Language);
+        // console.log("Plot: " + response.data.Plot);
+        // console.log("Actor(s): " + response.data.Actors);
     }).catch(function(error) {
         if (error.response) {
             console.log(error.response.data);
@@ -124,14 +154,14 @@ function doThis(userInput) {
         }
 
         var dataArr = data.split(",");
-        console.log(dataArr);
+        console.log(dataArr); // REMOVE
 
         userCommand = dataArr[0];
-        console.log(userCommand);
+        console.log(userCommand); // REMOVE
 
         userInput = dataArr[1];
-        console.log(userInput);
+        console.log(userInput); // REMOVE -- do the quotes need to be removed?
 
         liriBot(userCommand, userInput);
     });
-}
+};
