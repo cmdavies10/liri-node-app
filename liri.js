@@ -53,8 +53,15 @@ function concertThis(userInput) {
             // console.log("===")
             // console.log("Venue Name: " + response.data[i].venue.name);
             // console.log("Venue Location: " + response.data[i].venue.city); // ADD STATE OR COUNTRY
-            // console.log("Concert Date: " + moment(response.data[i].datetime).format("MM/DD/YYYY"));
-        }
+            // console.log("Concert Date: " +
+            // moment(response.data[i].datetime).format("MM/DD/YYYY"));
+
+            fs.appendFile("log.txt", concertInfo, function(err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        };
     }).catch(function(error) {
         if (error.response) {
             console.log(error.response.data);
@@ -80,7 +87,7 @@ function spotifyThis(userInput) {
     }, function(err, data) {
         if (err) {
             return console.log("Error occurred: " + err);
-        }
+        };
 
         var songs = data.tracks.items;
 
@@ -99,15 +106,21 @@ function spotifyThis(userInput) {
             // console.log("Song Name: " + songs[i].name);
             // console.log("Song Preview: " + songs[i].preview_url);
             // console.log("Album: " + songs[i].album.name);
-        }
-    })
-}
+
+            fs.appendFile("log.txt", songInfo, function(err) {
+                if (err) {
+                    console.log(err);
+                };
+            });
+        };
+    });
+};
 
 function movieThis(userInput) {
     if (!userInput) {
         userInput = "Mr. Nobody";
-    }
-    var queryURL = "http://www.omdbapi.com/?t=" + userInput + "&apikey=trilogy"
+    };
+    var queryURL = "http://www.omdbapi.com/?t=" + userInput + "&apikey=trilogy";
     console.log(queryURL); // REMOVE IN FINAL VERSION
 
     axios.get(queryURL).then(function(response) {
@@ -133,6 +146,12 @@ function movieThis(userInput) {
         // console.log("Language(s): " + response.data.Language);
         // console.log("Plot: " + response.data.Plot);
         // console.log("Actor(s): " + response.data.Actors);
+
+        fs.appendFile("log.txt", movieInfo, function(err) {
+            if (err) {
+                console.log(err);
+            };
+        });
     }).catch(function(error) {
         if (error.response) {
             console.log(error.response.data);
@@ -151,7 +170,7 @@ function doThis(userInput) {
     fs.readFile("random.txt", "utf8", function(err, data) {
         if (err) {
             return console.log(err);
-        }
+        };
 
         var dataArr = data.split(",");
         console.log(dataArr); // REMOVE
@@ -163,5 +182,11 @@ function doThis(userInput) {
         console.log(userInput); // REMOVE -- do the quotes need to be removed?
 
         liriBot(userCommand, userInput);
+
+        // fs.appendFile("log.txt", liriBot(userCommand, userInput), function(err) {
+        //     if (err) {
+        //         console.log(err);
+        //     };
+        // });
     });
 };
