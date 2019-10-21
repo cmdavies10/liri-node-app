@@ -18,13 +18,24 @@ var keys = require("./keys.js");
 var userCommand = process.argv[2];
 var userInput = process.argv.slice(3).join("+");
 
-concertThis();
+
+// concertThis();
 
 
 // FUNCTIONS====
 // switch function
+switch (userCommand) {
+    case "concert-this":
+        concertThis(userInput);
+        break;
+    case "movie-this":
+        movieThis(userInput);
+        break;
+    default:
+        console.log("Invalid. Please type one of the following options: \nconcert-this \nmovie-this")
+}
 
-function concertThis() {
+function concertThis(userInput) {
     var queryURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
     console.log(queryURL);
 
@@ -49,22 +60,33 @@ function concertThis() {
     });
 };
 
+function movieThis(userInput) {
+    var queryURL = "http://www.omdbapi.com/?t=" + userInput + "&apikey=trilogy"
+    console.log(queryURL);
 
-
-// node liri.js concert-this <artist/band name here>
-
-// This will search the Bands in Town Artist Events API
-// ("https://rest.bandsintown.com/artists/" + artist +
-// "/events?app_id=codingbootcamp") for an artist and render the following
-// information about each event to the terminal:
-
-
-// Name of the venue
-
-// Venue location
-
-// Date of the Event (use moment to format this as "MM/DD/YYYY")
-
-// Important: There is no need to sign up for a Bands in Town api_id key. Use the codingbootcamp as your app_id. For example, the URL used to search for "Celine Dion" would look like the following:
-
-// https://rest.bandsintown.com/artists/celine+dion/events?app_id=codingbootcamp
+    axios.get(queryURL).then(function(response) {
+        if (!userInput) {
+            userInput = "Mr. Nobody"
+        }
+        console.log("===")
+        console.log("Title: " + response.data.Title);
+        console.log("Year: " + response.data.Year);
+        console.log("IMDB Rating: " + response.data.imdbRating);
+        console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+        console.log("Country(ies): " + response.data.Country);
+        console.log("Language(s): " + response.data.Language);
+        console.log("Plot: " + response.data.Plot);
+        console.log("Actor(s): " + response.data.Actors);
+    }).catch(function(error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers)
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log("Error", error.message);
+        }
+        console.log(error.config);
+    });
+}
