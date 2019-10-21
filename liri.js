@@ -3,7 +3,7 @@ require("dotenv").config();
 
 // initialize variables
 var fs = require("fs"); // to read .txt file
-var spotifyAPI = require("node-spotify-api");
+var Spotify = require("node-spotify-api");
 var axios = require("axios");
 var moment = require("moment");
 
@@ -12,14 +12,13 @@ var moment = require("moment");
 var keys = require("./keys.js");
 
 // use the below to access keys information
-// var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 
 // user command and inputs
 var userCommand = process.argv[2];
 var userInput = process.argv.slice(3).join("+");
 
 // FUNCTIONS====
-// switch function
 switch (userCommand) {
     case "concert-this":
         concertThis(userInput);
@@ -27,9 +26,12 @@ switch (userCommand) {
     case "movie-this":
         movieThis(userInput);
         break;
+    case "spotify-this-song":
+        spotifyThis(userInput);
+        break;
     default:
-        console.log("Invalid. Please type one of the following options: \nconcert-this \nmovie-this")
-}
+        console.log("Invalid. Please type one of the following options: \nconcert-this \nspotify-this-song \nmovie-this")
+};
 
 function concertThis(userInput) {
     var queryURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
@@ -55,6 +57,33 @@ function concertThis(userInput) {
         console.log(error.config);
     });
 };
+
+function spotifyThis(userInput) {
+    if (!userInput) {
+        userInput = "The Sign"
+    }
+
+    spotify.search({
+        type: "track",
+        query: userInput
+    }, function(err, data) {
+        if (err) {
+            return console.log("Error occurred: " + err);
+        }
+
+        var songs = data.tracks.items
+
+        for (var i = 0; i < songs.length; i++) {
+            console.log(songs[i].artists);
+            console.log("Song Name: " + songs[i].name);
+            // console.log(songs[i].name);
+            // console.log(songs[i].name);
+            // console.log(songs[i].name);
+        }
+
+    })
+}
+
 
 function movieThis(userInput) {
     if (!userInput) {
@@ -85,4 +114,4 @@ function movieThis(userInput) {
         }
         console.log(error.config);
     });
-}
+};
