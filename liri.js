@@ -29,9 +29,11 @@ function concertThis() {
     console.log(queryURL);
 
     axios.get(queryURL).then(function(response) {
-        // for (var i = 0; i < response.data.length; i++) {
-        console.log(response.data[0].datetime);
-        // }
+        for (var i = 0; i < response.data.length; i++) {
+            console.log("Venue Name: " + response.data[i].venue.name);
+            console.log("Venue Location: " + response.data[i].venue.city); // add state or country
+            console.log("Concert Date: " + response.data[i].datetime);
+        }
     }).catch(function(error) {
         if (error.response) {
             console.log(error.response.data);
@@ -43,12 +45,8 @@ function concertThis() {
             console.log("Error", error.message);
         }
         console.log(error.config);
-    })
-
-
-
-
-}
+    });
+};
 
 
 
