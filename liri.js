@@ -1,7 +1,7 @@
-// code to read and set any environment variables with the dotenv package:
+// code to read and set any environment variables with the dotenv package
 require("dotenv").config();
 
-// initialize variables
+// initialize variables ===
 var fs = require("fs"); // to read .txt file
 var Spotify = require("node-spotify-api");
 var keys = require("./keys.js");
@@ -9,11 +9,11 @@ var spotify = new Spotify(keys.spotify);
 var axios = require("axios");
 var moment = require("moment");
 
-// user command and inputs
+// user command and inputs ===
 var userCommand = process.argv[2];
 var userInput = process.argv.slice(3).join("+");
 
-// execute function
+// execute function ===
 liriBot(userCommand, userInput);
 
 // functions ====
@@ -38,7 +38,6 @@ function liriBot(userCommand, userInput) {
 
 function concertThis(userInput) {
     var queryURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
-    console.log(queryURL); // REMOVE IN FINAL VERSION
 
     axios.get(queryURL).then(function(response) {
         for (var i = 0; i < response.data.length; i++) {
@@ -109,7 +108,6 @@ function movieThis(userInput) {
         userInput = "Mr. Nobody";
     };
     var queryURL = "http://www.omdbapi.com/?t=" + userInput + "&apikey=trilogy";
-    console.log(queryURL); // REMOVE IN FINAL VERSION
 
     axios.get(queryURL).then(function(response) {
         var movieInfo =
@@ -151,7 +149,6 @@ function doThis(userInput) {
         };
 
         var dataArr = data.split(",");
-        console.log(dataArr); // REMOVE
 
         userCommand = dataArr[0];
         userInput = dataArr[1];
