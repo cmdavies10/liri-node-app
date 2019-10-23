@@ -13,7 +13,7 @@ upcoming concerts, songs and movies to the terminal:
     * Venue City
     * Event Date
     * Screenshot:
-    ![Screenshot](screenshots\concert-this_screenshot.png)
+    ![Screenshot](https://github.com/cmdavies10/liri-node-app/blob/master/screenshots/concert-this_screenshot.png)
 
 2. `spotify-this-song` utilizes the `node-spotify-api` package to retrieve the
    following song information from the Spotify API:
