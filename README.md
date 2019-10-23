@@ -22,7 +22,7 @@ upcoming concerts, songs and movies to the terminal:
    * Preview Link from Spotify
    * Album Name
    * Screenshot:
-    ![screenshot](screenshots\spotify-this-song_screenshot.png)
+    ![screenshot](https://github.com/cmdavies10/liri-node-app/blob/master/screenshots/spotify-this-song_screenshot.png)
 
 3. `movie-this` uses the OMDB API to output the following information on a given
   movie to the terminal:
@@ -36,16 +36,16 @@ upcoming concerts, songs and movies to the terminal:
     * Actor(s) Name(s)
     * `Note:` LIRI will default to `Mr. Nobody` if user input is left blank
     * Screenshot:
-    ![screenshot](screenshots\movie-this_screenshot.png)
+    ![screenshot](https://github.com/cmdavies10/liri-node-app/blob/master/screenshots/movie-this_screenshot.png)
 
 4. `do-what-it-says` reads text from inside the `random.txt` file and calls one of
    LIRI's commands
-   ![screenshot](screenshots\do-what-it-says_screenshot.png)
+   ![screenshot](https://github.com/cmdavies10/liri-node-app/blob/master/screenshots/do-what-it-says_screenshot.png)
 
 Additionally, LIRI will create a `log.txt` file and append the results from any
 valid command.  Here is an example output from the log:
 
-  ![screenshot](screenshots\log-txt_screenshot.png)
+  ![screenshot](https://github.com/cmdavies10/liri-node-app/blob/master/screenshots/log-txt_screenshot.png)
 
 ### INSTRUCTIONS
 In order to run LIRI, please ensure that Node is installed and create a local
